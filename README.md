@@ -129,7 +129,10 @@ Both commands are verified against manual tests:
   run because the repo had no git remote yet.
 - `/audit` has not been tested against a real codebase yet — it's only been
   used to draft the command file itself, never actually run.
-- `/review-issues` has not been tested yet.
+- `/review-issues` correctly refused to run on a non-default branch, kept a
+  genuinely open issue open without proposing a close, and identified an
+  already-fixed issue as resolved, citing the current code and the PR that
+  fixed it, without closing anything until approved.
 
 Not yet tested: the generalized templates on a real, non-toy project — only
 a toy C++ file and an empty repo so far. That's the next real-world check.
