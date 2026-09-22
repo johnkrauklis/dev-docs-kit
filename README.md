@@ -18,6 +18,7 @@ templates after setup.
 - `/issues` — lists problems noticed during work that were outside the task's
   scope, then files the ones you approve to GitHub Issues (with duplicate
   checking).
+- `/audit` — for dropping this into a codebase that already exists. Reads the code and drafts architecture.md and conventions.md from what it actually finds, shows you the draft before writing anything, and never touches a doc that already has real content. Doesn't guess at project-context.md or write decision records from code alone — it asks you instead, since "why" isn't something code can answer.
 
 ## What it deliberately doesn't do
 
@@ -83,6 +84,16 @@ Then:
    carry over any real conventions, then replace the old file.
 3. Commit, and you're set up.
 
+## Dropping into an existing codebase
+
+If you're being handed a project that already has code but no `docs/`, run
+`/setup-docs` first to get the folder structure and empty templates in
+place, then run `/audit` to have it read the codebase and draft
+`architecture.md` and `conventions.md` from what's actually there. It'll
+show you the draft and wait for confirmation before writing anything, and it
+will not draft `project-context.md` — that one it'll ask you about directly,
+since intent isn't something it can read out of the code.
+
 ## Day-to-day workflow
 
 1. Branch, make your change.
@@ -113,6 +124,8 @@ Both commands are verified against manual tests:
   existing `CLAUDE.md`, correctly skipped already-present files on a re-run,
   and reported honestly (rather than silently) when label creation couldn't
   run because the repo had no git remote yet.
+- `/audit` has not been tested against a real codebase yet — it's only been
+  used to draft the command file itself, never actually run.
 
 Not yet tested: the generalized templates on a real, non-toy project — only
 a toy C++ file and an empty repo so far. That's the next real-world check.
