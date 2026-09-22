@@ -14,14 +14,18 @@ templates after setup.
 - `/docs-check` — before opening a PR, diffs your branch against main and
   tells you which authored docs your change made inaccurate. Proposes edits,
   never applies them without confirmation. Also catches undocumented design
-  decisions.
+  decisions. Accepts an optional base branch argument instead of the repo's
+  default branch, e.g. `/dev-docs:docs-check fake-main`.
 - `/issues` — lists problems noticed during work that were outside the task's
   scope, then files the ones you approve to GitHub Issues (with duplicate
   checking).
 - `/audit` — for dropping this into a codebase that already exists. Reads the code and drafts architecture.md and conventions.md from what it actually finds, shows you the draft before writing anything, and never touches a doc that already has real content. Doesn't guess at project-context.md or write decision records from code alone — it asks you instead, since "why" isn't something code can answer.
 - `/review-issues` — checks open GitHub issues against the default branch and
   proposes closing the ones that look resolved. Never closes anything without
-  approval.
+  approval. Also accepts an optional base branch argument, e.g.
+  `/dev-docs:review-issues fake-main`; when used, issues won't actually
+  auto-close from `Closes #` unless the PR merges into the repo's real
+  default branch.
 
 ## What it deliberately doesn't do
 
@@ -105,3 +109,11 @@ since intent isn't something it can read out of the code.
 3. Open the PR using the template. Check the Docs checklist honestly.
 4. If you noticed unrelated problems while working, run `/issues` to file
    them instead of fixing them mid-branch.
+
+## Status
+
+- `/audit` was run against a real multi-subsystem C++ codebase and produced
+  accurate, evidence-based drafts. Three weaknesses it showed there —
+  enumerating source files, deferring the project-context.md questions and
+  decision candidates to a later response, and prescriptive wording in
+  conventions.md — were fixed in 0.4.0.

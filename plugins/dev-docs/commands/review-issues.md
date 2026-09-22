@@ -2,20 +2,26 @@
 description: Check open GitHub issues against the default branch and propose closing the ones that look resolved.
 ---
 
-Check which open GitHub issues are already resolved on the default branch.
+Check which open GitHub issues are already resolved on the base branch.
 
-## Step 1: Confirm you're on the up-to-date default branch
+## Step 1: Confirm you're on the up-to-date base branch
 
-Get the default branch name with:
+If `$ARGUMENTS` names a branch, use it as the base branch for this check.
+Otherwise, detect the repo's default branch:
 `gh repo view --json defaultBranchRef -q .defaultBranchRef.name`
 
 Compare it to `git branch --show-current`. If they differ, stop and tell me
-to switch to the default branch first. Branches are where work happens, but
-an issue only counts as fixed once the fix is on the default branch.
+to switch to the base branch first. Branches are where work happens, but an
+issue only counts as fixed once the fix is on the base branch.
 
-Then run `git fetch` and check whether the local default branch is behind
+Then run `git fetch` and check whether the local base branch is behind
 origin. If it is, stop and tell me to `git pull` first, so you're not judging
 issues against stale code.
+
+If a base branch was given via `$ARGUMENTS` (i.e. it isn't the repo's real
+default branch), note this in the results: issues won't actually auto-close
+from a `Closes #<number>` reference unless a PR merges into the repo's real
+default branch, not into this base branch.
 
 ## Step 2: Read the open issues
 

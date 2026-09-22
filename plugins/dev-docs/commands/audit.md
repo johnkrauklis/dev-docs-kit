@@ -72,6 +72,10 @@ inventory). Write:
   own structure implies it should do. Only include what you're confident
   about; a wrong guess here is worse than leaving it out.
 
+Never enumerate individual source files. Describe each component by its
+role. At most, name one representative file or folder so a reader knows
+where to look.
+
 ### Split into topic files if architecture.md would be long
 
 If the drafted content would push docs/architecture.md past roughly 150
@@ -95,6 +99,11 @@ For Naming, File layout, and Style, only record patterns you can point to
 in at least two or three places — a pattern used once isn't a convention,
 it's a coincidence, and recording it as a rule will mislead the next person.
 
+Describe patterns you observed, not rules for others to follow. If a pattern
+could be a deliberate standard or could just be habit, mark it "Needs team
+confirmation" instead of telling people to match it. Only link to other docs
+you've confirmed exist in the repo.
+
 ## What this doesn't do
 
 This command drafts prose docs from what the code shows. It does not
@@ -109,11 +118,20 @@ this note.
 
 ## Present before writing
 
-Show me the full drafted text for each file. Do not write to disk until I
-confirm. If I ask for changes, revise and show again before writing.
+Show me the full drafted text for each file. In that same response, after
+the drafts and before asking for confirmation to write, always do both of
+the following:
+
+1. Ask the project-context.md questions directly, in chat (what is this,
+   who's it for, current phase, goals, constraints, non-goals).
+2. List any decision candidates you noticed, for me to confirm or reject.
+
+Asking for confirmation to write without doing both of those first is
+incomplete — don't do it. Do not write to disk until I confirm. If I ask for
+changes, revise and show again before writing, still including both of the
+above.
 
 ## Finish by
 
-1. Confirming which files you drafted vs. left untouched and why.
-2. Asking the project-context.md questions directly, in chat.
-3. Listing any decision candidates you noticed, for me to confirm or reject.
+Once I confirm and you've written the files, confirm which files you
+drafted vs. left untouched and why.

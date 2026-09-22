@@ -2,12 +2,13 @@
 description: Check whether this branch's changes make any authored doc inaccurate, before opening a PR.
 ---
 
-Get the repo's default branch name with:
+If `$ARGUMENTS` names a branch, use it as the base branch for this check.
+Otherwise, detect the repo's default branch:
 `gh repo view --json defaultBranchRef -q .defaultBranchRef.name`
 If `gh` isn't available, fall back to checking whether `main` or `master`
 exists locally and use whichever one does.
 
-Compare this branch against the default branch (`git diff <default>...HEAD`;
+Compare this branch against the base branch (`git diff <base>...HEAD`;
 if there are no commits yet, use the working tree diff instead).
 
 For each authored doc in docs/*.md (ignore docs/decisions/):
