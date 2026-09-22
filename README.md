@@ -106,33 +106,3 @@ since intent isn't something it can read out of the code.
 4. If you noticed unrelated problems while working, run `/issues` to file
    them instead of fixing them mid-branch.
 
-## Why this exists instead of Notion (or similar)
-
-The failure mode of a separate docs/tracking tool is drift: the tool says one
-thing, the code does another, and nobody notices until it costs someone real
-time. The fix here is structural, not procedural — docs live beside the code
-they describe, and the one enforced checkpoint is the PR, because that's the
-only moment a second person is already looking at the diff with reason to
-catch a mismatch.
-
-## Status
-
-Both commands are verified against manual tests:
-
-- `/docs-check` correctly flagged an architectural change (adding an event
-  bus where the doc said "no event system"), proposed both a doc edit and a
-  decision record, and stayed silent on a pure variable-rename branch.
-- `/setup-docs` correctly scaffolded a fresh repo with no existing docs or
-  CLAUDE.md, correctly wrote `CLAUDE.md.new` instead of overwriting an
-  existing `CLAUDE.md`, correctly skipped already-present files on a re-run,
-  and reported honestly (rather than silently) when label creation couldn't
-  run because the repo had no git remote yet.
-- `/audit` has not been tested against a real codebase yet — it's only been
-  used to draft the command file itself, never actually run.
-- `/review-issues` correctly refused to run on a non-default branch, kept a
-  genuinely open issue open without proposing a close, and identified an
-  already-fixed issue as resolved, citing the current code and the PR that
-  fixed it, without closing anything until approved.
-
-Not yet tested: the generalized templates on a real, non-toy project — only
-a toy C++ file and an empty repo so far. That's the next real-world check.
