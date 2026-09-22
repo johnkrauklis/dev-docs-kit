@@ -1,7 +1,7 @@
 # dev-docs-kit
 
-A Claude Code plugin that replaces a shared Notion workspace (or any external
-doc/issue tool) with docs that live in the repo and are checked at PR time.
+A Claude Code plugin that replaces a shared external doc/issue tool with docs
+that live in the repo and are checked at PR time.
 
 Works for any codebase — a game, a service, a script. Nothing in it is
 project-specific; the project-specific content is what you fill into the
@@ -105,4 +105,3 @@ since intent isn't something it can read out of the code.
 3. Open the PR using the template. Check the Docs checklist honestly.
 4. If you noticed unrelated problems while working, run `/issues` to file
    them instead of fixing them mid-branch.
-
