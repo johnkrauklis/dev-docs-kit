@@ -1,0 +1,85 @@
+# dev-docs-kit
+
+A Claude Code plugin that replaces a shared Notion workspace (or any external
+doc/issue tool) with docs that live in the repo and are checked at PR time.
+
+Works for any codebase — a game, a service, a script. Nothing in it is
+project-specific; the project-specific content is what you fill into the
+templates after setup.
+
+## What it does
+
+- `/setup-docs` — scaffolds `docs/`, decision records, a PR template, and
+  three GitHub labels into the current repo. Never overwrites existing files.
+- `/docs-check` — before opening a PR, diffs your branch against main and
+  tells you which authored docs your change made inaccurate. Proposes edits,
+  never applies them without confirmation. Also catches undocumented design
+  decisions.
+- `/issues` — lists problems noticed during work that were outside the task's
+  scope, then files the ones you approve to GitHub Issues (with duplicate
+  checking).
+
+## What it deliberately doesn't do
+
+No database, no background watcher, no hooks that fire on every file edit, no
+writes without asking first. If you stop using this tomorrow, you're left
+with plain markdown in git and plain GitHub issues — nothing to migrate away
+from.
+
+## Install
+
+```
+/plugin marketplace add <owner>/dev-docs-kit
+/plugin install dev-docs@dev-docs-kit-marketplace
+```
+
+(Replace `<owner>/dev-docs-kit` with wherever this repo ends up living.)
+
+## Set up a new project
+
+In the project's repo, with Claude Code running:
+
+```
+/setup-docs
+```
+
+This creates the doc files, the PR template, and the three labels
+(`bug`, `design`, `tooling`). It will not touch an existing `CLAUDE.md` —
+if you have one, it writes `CLAUDE.md.new` instead so you can merge by hand.
+
+Then:
+
+1. Fill in `docs/project-context.md`, `docs/architecture.md`, and
+   `docs/conventions.md`. Each file has HTML comments explaining what belongs
+   there and, in `architecture.md`, which sections to delete if they don't
+   apply (e.g. a game usually has no "External dependencies" section).
+2. If `CLAUDE.md.new` was created, diff it against your existing `CLAUDE.md`,
+   carry over any real conventions, then replace the old file.
+3. Commit, and you're set up.
+
+## Day-to-day workflow
+
+1. Branch, make your change.
+2. Before opening a PR: run `/docs-check`. Confirm or reject its proposed
+   edits.
+3. Open the PR using the template. Check the Docs checklist honestly.
+4. If you noticed unrelated problems while working, run `/issues` to file
+   them instead of fixing them mid-branch.
+
+## Why this exists instead of Notion (or similar)
+
+The failure mode of a separate docs/tracking tool is drift: the tool says one
+thing, the code does another, and nobody notices until it costs someone real
+time. The fix here is structural, not procedural — docs live beside the code
+they describe, and the one enforced checkpoint is the PR, because that's the
+only moment a second person is already looking at the diff with reason to
+catch a mismatch.
+
+## Status
+
+Verified against a manual test: `/docs-check` correctly flagged an
+architectural change (adding an event bus where the doc said "no event
+system") and proposed both a doc edit and a decision record, and correctly
+stayed silent on a pure variable-rename branch. `/setup-docs` and the
+generalized templates have not yet been run on a real, non-toy project —
+that's the next test before treating this as done.

@@ -1,0 +1,14 @@
+{
+  "name": "dev-docs-kit-marketplace",
+  "owner": {
+    "name": "John Krauklis"
+  },
+  "description": "Repo-native docs, PR-time doc checking, and issue logging for Claude Code projects.",
+  "plugins": [
+    {
+      "name": "dev-docs",
+      "source": "./plugins/dev-docs",
+      "description": "Scaffolds docs/, decision records, and a PR-time doc-check workflow into any repo."
+    }
+  ]
+}
