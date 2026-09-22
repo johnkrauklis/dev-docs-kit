@@ -116,6 +116,26 @@ CI-regenerated pipeline under docs/generated/ — not something drafted once
 by hand here. Don't propose writing one; if asked, say so and point back to
 this note.
 
+## Self-check: no file-listing sentences
+
+Never enumerate individual source files (see above) — but drafting under
+that rule slips easily, so run this check yourself before showing me
+anything, every time you draft or revise:
+
+1. Scan every sentence in the drafts for source-file names (anything
+   ending in a code file extension, or an obvious filename pattern).
+2. If a sentence names more than one source file, rewrite it to describe
+   those files by role or subsystem instead, naming at most one of them as
+   a representative example.
+3. Re-scan the rewritten draft until no sentence names more than one
+   source file.
+
+  - bad: "simulation.cpp plus ecology, flora, forestry, soil, cave..."
+  - good: "simulation.cpp plus one file per gameplay subsystem"
+
+Do this silently as part of drafting — don't narrate the check, just apply
+it — and only then move to presenting the drafts below.
+
 ## Present before writing
 
 Show me the full drafted text for each file. In that same response, after
