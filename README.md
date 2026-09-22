@@ -9,7 +9,7 @@ templates after setup.
 
 ## What it does
 
-- `/setup-docs` — scaffolds `docs/`, decision records, a PR template, and
+- `/setup-docs` — scaffolds `docs/overview/`, decision records, a PR template, and
   three GitHub labels into the current repo. Never overwrites existing files.
 - `/docs-check` — before opening a PR, diffs your branch against main and
   tells you which authored docs your change made inaccurate. Proposes edits,
@@ -77,24 +77,27 @@ In the project's repo, with Claude Code running:
 /setup-docs
 ```
 
-This creates the doc files, the PR template, and the three labels
-(`bug`, `design`, `tooling`). It will not touch an existing `CLAUDE.md` —
-if you have one, it writes `CLAUDE.md.new` instead so you can merge by hand.
+This creates the doc files under `docs/overview/`, the PR template, and the
+three labels (`bug`, `design`, `tooling`). Keeping the managed docs in their
+own subfolder means they don't mix with any docs a project already has
+elsewhere in `docs/`. It will not touch an existing `CLAUDE.md` — if you have
+one, it writes `CLAUDE.md.new` instead so you can merge by hand.
 
 Then:
 
-1. Fill in `docs/project-context.md`, `docs/architecture.md`, and
-   `docs/conventions.md`. Each file has HTML comments explaining what belongs
-   there and, in `architecture.md`, which sections to delete if they don't
-   apply (e.g. a game usually has no "External dependencies" section).
+1. Fill in `docs/overview/project-context.md`, `docs/overview/architecture.md`,
+   and `docs/overview/conventions.md`. Each file has HTML comments explaining
+   what belongs there and, in `architecture.md`, which sections to delete if
+   they don't apply (e.g. a game usually has no "External dependencies"
+   section).
 2. If `CLAUDE.md.new` was created, diff it against your existing `CLAUDE.md`,
    carry over any real conventions, then replace the old file.
 3. Commit, and you're set up.
 
 ## Dropping into an existing codebase
 
-If you're being handed a project that already has code but no `docs/`, run
-`/setup-docs` first to get the folder structure and empty templates in
+If you're being handed a project that already has code but no `docs/overview/`,
+run `/setup-docs` first to get the folder structure and empty templates in
 place, then run `/audit` to have it read the codebase and draft
 `architecture.md` and `conventions.md` from what's actually there. It'll
 show you the draft and wait for confirmation before writing anything, and it

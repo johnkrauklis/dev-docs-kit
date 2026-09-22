@@ -3,8 +3,8 @@
 <!-- One paragraph: what this is, who it's for, current phase. -->
 
 ## Where things live
-- Authored docs: `docs/*.md` — read architecture.md and conventions.md before large changes
-- Decisions: `docs/decisions/` — one file per decision
+- Authored docs: `docs/overview/*.md` — read architecture.md and conventions.md before large changes
+- Decisions: `docs/overview/decisions/` — one file per decision
 - Issues: GitHub Issues (`gh issue list`)
 
 ## Workflow
@@ -24,8 +24,8 @@ Never create an issue without my confirmation.
 
 ## Decisions
 When a design decision is made in conversation, offer to record it as
-`docs/decisions/YYYY-MM-DD-slug.md` using the template in
-`docs/decisions/README.md`. Never write one without asking.
+`docs/overview/decisions/YYYY-MM-DD-slug.md` using the template in
+`docs/overview/decisions/README.md`. Never write one without asking.
 
 ## Coding conventions
 <!-- Only real, enforced conventions: build command, formatter, test command,

@@ -5,7 +5,7 @@ description: Draft architecture.md and conventions.md by reading an existing, un
 You're being dropped into a codebase you haven't seen before, to draft its
 initial docs from what's actually there. This is for onboarding an existing
 project, not a scaffold-only setup — use `/dev-docs:setup-docs` first if
-`docs/` doesn't exist yet, then run this to fill in real content.
+`docs/overview/` doesn't exist yet, then run this to fill in real content.
 
 ## What this does and doesn't do
 
@@ -29,8 +29,8 @@ gone. So:
 
 ## Never overwrite real content
 
-Before drafting anything, check whether docs/architecture.md and
-docs/conventions.md already exist and look like real content rather than the
+Before drafting anything, check whether docs/overview/architecture.md and
+docs/overview/conventions.md already exist and look like real content rather than the
 empty template (a file under ~15 lines with mostly HTML comments and no
 prose in a section is template, not content). For a template or missing
 file, draft into it. For a file with real content already, don't touch it —
@@ -56,7 +56,7 @@ reading every file:
 
 ## Draft architecture.md
 
-Follow the structure and rules already in docs/architecture.md's template
+Follow the structure and rules already in docs/overview/architecture.md's template
 (keep only sections that apply, no class lists or file trees, prose not
 inventory). Write:
 
@@ -78,15 +78,15 @@ where to look.
 
 ### Split into topic files if architecture.md would be long
 
-If the drafted content would push docs/architecture.md past roughly 150
-lines, split it by concern instead of writing one long file: keep Overview,
+If the drafted content would push docs/overview/architecture.md past roughly
+150 lines, split it by concern instead of writing one long file: keep Overview,
 Components, and Boundaries in architecture.md, and move Data and External
-dependencies into their own files (docs/data.md, docs/external-dependencies.md)
-if either section is substantial on its own. This is a prose-organization
-choice, not a new kind of content — every file this produces is still
-something you drafted and I confirmed, not generated inventory. Say which
-files you're proposing before writing, since this changes docs/README.md's
-file table too.
+dependencies into their own files (docs/overview/data.md,
+docs/overview/external-dependencies.md) if either section is substantial on
+its own. This is a prose-organization choice, not a new kind of content —
+every file this produces is still something you drafted and I confirmed, not
+generated inventory. Say which files you're proposing before writing, since
+this changes docs/overview/README.md's file table too.
 
 Do not create separate files for a class list, file tree, or dependency
 graph. That content is explicitly out of scope for this command — see "What
@@ -102,7 +102,9 @@ it's a coincidence, and recording it as a rule will mislead the next person.
 Describe patterns you observed, not rules for others to follow. If a pattern
 could be a deliberate standard or could just be habit, mark it "Needs team
 confirmation" instead of telling people to match it. Only link to other docs
-you've confirmed exist in the repo.
+you've confirmed exist in the repo. When linking to a doc outside
+docs/overview/ (elsewhere in docs/, or the project's own README), use a
+relative path from docs/overview/, like `../content-architecture.md`.
 
 ## What this doesn't do
 

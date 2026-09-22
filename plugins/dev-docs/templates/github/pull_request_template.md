@@ -4,7 +4,7 @@
 
 ## Docs
 - [ ] This change does not affect architecture, conventions, or a recorded decision
-- [ ] OR: `docs/` is updated in this PR (list files)
+- [ ] OR: `docs/overview/` is updated in this PR (list files)
 - [ ] Ran `/docs-check` before opening
 
 ## Issues

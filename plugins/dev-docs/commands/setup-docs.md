@@ -1,5 +1,5 @@
 ---
-description: Scaffold docs/, decision records, PR template, and GitHub labels into the current repo.
+description: Scaffold docs/overview/, decision records, PR template, and GitHub labels into the current repo.
 ---
 
 Set up the dev-docs structure in the current repo. Do this in order, checking
@@ -19,7 +19,7 @@ existence from memory or assumption — only from this command's output. For
 example, in bash:
 
 ```
-for f in docs/README.md docs/project-context.md docs/architecture.md docs/conventions.md docs/decisions/README.md .github/pull_request_template.md CLAUDE.md; do
+for f in docs/overview/README.md docs/overview/project-context.md docs/overview/architecture.md docs/overview/conventions.md docs/overview/decisions/README.md .github/pull_request_template.md CLAUDE.md; do
   test -e "$f" && echo "exists $f" || echo "missing $f"
 done
 ```
@@ -32,12 +32,15 @@ shown if the check reported it `missing`. If the check reported it `exists`,
 skip it and tell me at the end instead of overwriting — I may already have
 real content there.
 
-- `templates/docs/README.md` → `docs/README.md`
-- `templates/docs/project-context.md` → `docs/project-context.md`
-- `templates/docs/architecture.md` → `docs/architecture.md`
-- `templates/docs/conventions.md` → `docs/conventions.md`
-- `templates/docs/decisions/README.md` → `docs/decisions/README.md`
+- `templates/docs/README.md` → `docs/overview/README.md`
+- `templates/docs/project-context.md` → `docs/overview/project-context.md`
+- `templates/docs/architecture.md` → `docs/overview/architecture.md`
+- `templates/docs/conventions.md` → `docs/overview/conventions.md`
+- `templates/docs/decisions/README.md` → `docs/overview/decisions/README.md`
 - `templates/github/pull_request_template.md` → `.github/pull_request_template.md`
+
+These land in their own `docs/overview/` subfolder so they don't mix with
+any docs a project already has elsewhere in `docs/`.
 
 ## 3. Handle CLAUDE.md specially
 
@@ -71,7 +74,8 @@ gh). Don't just say "done."
 ## 6. Suggest next steps
 
 Tell me to:
-- Fill in `docs/project-context.md`, `docs/architecture.md`, and
-  `docs/conventions.md` with real content, deleting sections that don't apply
+- Fill in `docs/overview/project-context.md`, `docs/overview/architecture.md`,
+  and `docs/overview/conventions.md` with real content, deleting sections
+  that don't apply
 - Merge `CLAUDE.md.new` into `CLAUDE.md` if that file was created
 - Run `/docs-check` before my first PR through this workflow

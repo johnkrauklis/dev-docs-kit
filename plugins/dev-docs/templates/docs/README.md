@@ -1,4 +1,8 @@
-# docs/
+# docs/overview/
+
+This describes only this folder, `docs/overview/` — the docs this plugin
+manages. If `docs/` has other files or folders alongside `overview/`, those
+are separate, pre-existing project docs and are not managed by this plugin.
 
 Four things live here. Keep them short. A doc nobody trusts is worse than no doc.
 
