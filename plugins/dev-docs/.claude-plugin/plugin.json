@@ -1,7 +1,7 @@
 {
   "name": "dev-docs",
   "description": "Repo-native docs, PR-time doc checking, and issue logging.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "John Krauklis"
   }

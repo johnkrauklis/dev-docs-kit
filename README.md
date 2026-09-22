@@ -28,12 +28,38 @@ from.
 
 ## Install
 
+Clone this repo once, then add it as a local-directory marketplace. This is
+the documented method — `/plugin marketplace add` with a GitHub URL or
+`owner/repo` shorthand has been unreliable (see note below), so don't rely on
+it for now.
+
 ```
-/plugin marketplace add <owner>/dev-docs-kit
+git clone https://github.com/johnkrauklis/dev-docs-kit.git
+```
+
+Then in Claude Code, from any project:
+
+```
+/plugin marketplace add /full/path/to/dev-docs-kit
 /plugin install dev-docs@dev-docs-kit-marketplace
 ```
 
-(Replace `<owner>/dev-docs-kit` with wherever this repo ends up living.)
+Use the full local path to wherever you cloned it. On Windows this looks like
+`C:\Users\you\Projects\dev-docs-kit`; on macOS/Linux, `/home/you/dev-docs-kit`
+or similar.
+
+**To get updates later**, `git pull` inside your clone. A local-directory
+marketplace loads in place, so Claude Code picks up the change without
+re-adding anything.
+
+> **Known issue:** `/plugin marketplace add <github-url-or-shorthand>` has
+> failed on at least one machine with `fatal: Cannot prompt because user
+> interactivity has been disabled`, even though a plain `git clone` of the
+> same URL succeeds immediately. This looks like a bug in how Claude Code
+> invokes git for that command, not a problem with this repo or your
+> credentials. The local-path method above sidesteps it entirely. If it
+> starts working reliably in a future Claude Code version, switch back —
+> it's one fewer manual step.
 
 ## Set up a new project
 
@@ -77,9 +103,16 @@ catch a mismatch.
 
 ## Status
 
-Verified against a manual test: `/docs-check` correctly flagged an
-architectural change (adding an event bus where the doc said "no event
-system") and proposed both a doc edit and a decision record, and correctly
-stayed silent on a pure variable-rename branch. `/setup-docs` and the
-generalized templates have not yet been run on a real, non-toy project —
-that's the next test before treating this as done.
+Both commands are verified against manual tests:
+
+- `/docs-check` correctly flagged an architectural change (adding an event
+  bus where the doc said "no event system"), proposed both a doc edit and a
+  decision record, and stayed silent on a pure variable-rename branch.
+- `/setup-docs` correctly scaffolded a fresh repo with no existing docs or
+  CLAUDE.md, correctly wrote `CLAUDE.md.new` instead of overwriting an
+  existing `CLAUDE.md`, correctly skipped already-present files on a re-run,
+  and reported honestly (rather than silently) when label creation couldn't
+  run because the repo had no git remote yet.
+
+Not yet tested: the generalized templates on a real, non-toy project — only
+a toy C++ file and an empty repo so far. That's the next real-world check.
