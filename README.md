@@ -19,6 +19,9 @@ templates after setup.
   scope, then files the ones you approve to GitHub Issues (with duplicate
   checking).
 - `/audit` — for dropping this into a codebase that already exists. Reads the code and drafts architecture.md and conventions.md from what it actually finds, shows you the draft before writing anything, and never touches a doc that already has real content. Doesn't guess at project-context.md or write decision records from code alone — it asks you instead, since "why" isn't something code can answer.
+- `/review-issues` — checks open GitHub issues against the default branch and
+  proposes closing the ones that look resolved. Never closes anything without
+  approval.
 
 ## What it deliberately doesn't do
 
@@ -126,6 +129,7 @@ Both commands are verified against manual tests:
   run because the repo had no git remote yet.
 - `/audit` has not been tested against a real codebase yet — it's only been
   used to draft the command file itself, never actually run.
+- `/review-issues` has not been tested yet.
 
 Not yet tested: the generalized templates on a real, non-toy project — only
 a toy C++ file and an empty repo so far. That's the next real-world check.
