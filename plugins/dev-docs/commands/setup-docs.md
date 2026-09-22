@@ -11,12 +11,26 @@ Run `git rev-parse --show-toplevel` and confirm the current directory matches.
 If it doesn't, or the command fails, stop and tell me — don't guess a path or
 create files anywhere else.
 
-## 2. Copy the templates, never overwriting
+## 2. Check which target files already exist
 
-The plugin's templates live at `${CLAUDE_PLUGIN_ROOT}/templates/`. For each
-file below, copy it from there to the repo path shown, but only if the repo
-path doesn't already exist. If it exists, skip it and tell me at the end
-instead of overwriting — I may already have real content there.
+Before copying anything, run one shell command that checks every target path
+below and prints `exists <path>` or `missing <path>` for each. Do not decide
+existence from memory or assumption — only from this command's output. For
+example, in bash:
+
+```
+for f in docs/README.md docs/project-context.md docs/architecture.md docs/conventions.md docs/decisions/README.md .github/pull_request_template.md CLAUDE.md; do
+  test -e "$f" && echo "exists $f" || echo "missing $f"
+done
+```
+
+Show me this command's output before doing anything else in this step.
+
+Then, using only that output: for each of the following, copy it from the
+plugin's templates at `${CLAUDE_PLUGIN_ROOT}/templates/` to the repo path
+shown if the check reported it `missing`. If the check reported it `exists`,
+skip it and tell me at the end instead of overwriting — I may already have
+real content there.
 
 - `templates/docs/README.md` → `docs/README.md`
 - `templates/docs/project-context.md` → `docs/project-context.md`
@@ -27,11 +41,12 @@ instead of overwriting — I may already have real content there.
 
 ## 3. Handle CLAUDE.md specially
 
-Never overwrite an existing `CLAUDE.md`. If one exists, copy the template to
-`CLAUDE.md.new` instead and tell me to diff and merge it by hand — the
-existing file may have real project-specific content (build commands, style
-rules) that would be lost otherwise. If no `CLAUDE.md` exists, copy the
-template straight to `CLAUDE.md`.
+Using the `CLAUDE.md` result from step 2's check output (never from memory or
+assumption): if it was reported `exists`, never overwrite it — copy the
+template to `CLAUDE.md.new` instead and tell me to diff and merge it by hand,
+since the existing file may have real project-specific content (build
+commands, style rules) that would be lost otherwise. If it was reported
+`missing`, copy the template straight to `CLAUDE.md`.
 
 Template: `templates/CLAUDE.md`
 
@@ -48,8 +63,10 @@ labels by hand instead of failing silently.
 
 ## 5. Report a summary
 
-List what was created, what was skipped because it already existed, and what
-needs my manual attention (CLAUDE.md.new, missing gh). Don't just say "done."
+Include the existence-check output from step 2 so I can see why each file
+was created or skipped. List what was created, what was skipped because it
+already existed, and what needs my manual attention (CLAUDE.md.new, missing
+gh). Don't just say "done."
 
 ## 6. Suggest next steps
 
